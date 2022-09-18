@@ -31,6 +31,7 @@
     "react-native-camera": "^4.2.1",
     "react-native-dashboard": "0.0.6",
     "react-native-datepicker": "^1.7.2",
+    "react-native-dropdown-picker": "^5.4.2",
     "react-native-element-dropdown": "^2.0.0",
     "react-native-elements": "^3.4.2",
     "react-native-linear-gradient": "^2.6.1",
