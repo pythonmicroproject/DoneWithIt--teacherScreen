@@ -5,7 +5,7 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 import { Button } from "react-native-elements";
 import EnterDetails from "./EnterDetails";
 
-export default function barCodeScanner({navigation}){
+export default function barCodeScanner({navigation, route}){
     const [hasPermission, setHasPermission] = React.useState(false);
     const [scanData, setScanData ] = React.useState();
 
@@ -38,7 +38,12 @@ export default function barCodeScanner({navigation}){
               onBarCodeScanned={ scanData ? undefined : handleBarCodeScanned}
             />
             {scanData && <Button title='Scan Again?' onPress={()=> setScanData(undefined)} />}
-            {scanData && <Button title='Close' onPress={()=> navigation.navigate(EnterDetails)} />}
+            {scanData && <Button title='Close' onPress={()=> {
+                route.params.onReturn(scanData);
+                navigation.navigate(EnterDetails)}
+                // navigation.goBack();}
+            }
+                />}
             <StatusBar style="auto"/>
         </View>
     )

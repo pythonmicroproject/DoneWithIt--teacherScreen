@@ -34,8 +34,10 @@ const data = [
   ],
 ];
 
-const EnterDetails = ({navigation}) => {
+const EnterDetails = ({navigation, route}) => {
   
+    const [name, onChangeName] = useState("");
+
     const [modalVisible, setModalVisible] = useState(false);
     const [mydate, setDate] = useState(new Date());
     const [displaymode, setMode] = useState('date');
@@ -66,7 +68,9 @@ const EnterDetails = ({navigation}) => {
     };
 
     const BarCodeScannerCall = () =>{
-      navigation.navigate('BarCodeScanner');
+      navigation.navigate('BarCodeScanner', { onReturn: (item) => {
+        onChangeName(item)
+      }});
     }
 
     const ImageSelectorCall = () =>{
@@ -144,9 +148,17 @@ const EnterDetails = ({navigation}) => {
     
             
             <Text style={{ fontWeight: 'bold', marginTop: -20 }}>Name:  </Text>
+          
             <View style={{ flexDirection: 'column', borderRadius: 15, borderColor: '#3173de', borderWidth: 2, height: 40, }}>
 
-                <TextInput style={styles.textinput} /></View>
+                <TextInput 
+                style={styles.textinput} 
+                onChangeText = {onChangeName}
+                value={name}
+                // placeholder="Name :"
+                />
+
+                </View>
             <Text style={{ fontWeight: 'bold', marginTop: 20 }}>Venue: </Text>
             <View style={{ flexDirection: 'column', borderRadius: 15, borderColor: '#3173de', borderWidth: 2, height: 40, }}>
 
