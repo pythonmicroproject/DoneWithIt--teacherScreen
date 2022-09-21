@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Image, Button } from 'react-native';
 
 import * as ImagePicker from 'expo-image-picker';
 
-function ImageSelector() {
+function ImageSelector({navigation}) {
   // The path of the picked image
   const [pickedImagePath, setPickedImagePath] = useState('');
 
@@ -40,7 +40,7 @@ function ImageSelector() {
       alert("You've refused to allow this appp to access your camera!");
       return;
     }
-
+    
     const result = await ImagePicker.launchCameraAsync({
       allowsEditing : true
     });
@@ -54,12 +54,9 @@ function ImageSelector() {
     }
   }
 
+  
   return (
     <View style={styles.screen}>
-      <View style={styles.buttonContainer}>
-        <Button onPress={showImagePicker} title="Select an image" />
-        <Button onPress={openCamera} title="Open camera" />
-      </View>
 
       <View style={styles.imageContainer}>
         {
@@ -69,6 +66,17 @@ function ImageSelector() {
           />
         }
       </View>
+
+      <View style={styles.buttonContainer}>
+        <Button onPress={showImagePicker} title="Select an image" />
+        <Button onPress={openCamera} title="Open camera" />
+
+        {pickedImagePath !== '' && 
+                <Button title="Submit" onPress={() => navigation.navigate("EnterDetails",{uri:pickedImagePath})}/>
+        }
+
+      </View>
+
     </View>
   );
 }
@@ -77,26 +85,27 @@ function ImageSelector() {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
   },
   buttonContainer: {
     width: 400,
     color:'#111',
     flexDirection: 'row',
-    justifyContent: 'space-around'
+    justifyContent: 'space-evenly'
   },
   imageContainer: {
-    padding: 30,
-    margin: 15
+    // padding: 30,
+    // margin: 15
   },
   image: {
-    width: 400,
-    height: 600,
+    width: 300,
+    height: 200,
+    borderRadius:5,
     // width: '100%',
     // height:'100%',
     justifyContent: 'center',
-    resizeMode: 'cover'
+    resizeMode: 'center'
   }
 });
 
