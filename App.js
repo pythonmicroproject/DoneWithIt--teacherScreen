@@ -22,6 +22,10 @@ import CertificateDetailsTeacher from './app/screens/CertificateDetailsTeacher';
 
 import TeacherScreen from './app/screens/TeacherScreen';
 
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log notifications
+
 
 function HomeScreen1({ navigation }) {
   return (
