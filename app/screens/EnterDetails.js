@@ -42,7 +42,11 @@ const data = [
 
 const EnterDetails = ({ navigation, route }) => {
 
-  const [name, onChangeName] = useState("");
+  const [qrData, onChangeQRData] = useState("");
+
+  const [name,onChangeName] = useState("");
+  const [venue, onChangeVenue] = useState("");
+  const [days, onChangeDays] = useState("");
 
   const [modalVisible, setModalVisible] = useState(false);
   const [mydate, setDate] = useState(new Date());
@@ -52,6 +56,7 @@ const EnterDetails = ({ navigation, route }) => {
   const [pickedImagePath, setPickedImagePath] = useState("");
 
   const changeSelectedDate = (event, selectedDate) => {
+    console.log(selectedDate);
     const currentDate = selectedDate || mydate;
     setDate(currentDate);
     setShow(false);
@@ -119,6 +124,21 @@ const EnterDetails = ({ navigation, route }) => {
       console.log(result.uri);
     }
   };
+
+
+  const scanned = async () => {
+
+    await navigation.navigate('BarCodeScanner', { onReturn: (item) => {
+            onChangeQRData(item)}});
+    
+    const newData = qrData.split(" ");
+    console.log(qrData);
+    console.log(newData);
+    onChangeName(newData[0] + " " + newData[1]);
+    onChangeVenue(newData[2] + " " + newData[3]);
+    onChangeDays(newData[4]);
+  }
+
 
   console.log(mydate);
 
@@ -234,9 +254,8 @@ const EnterDetails = ({ navigation, route }) => {
           <Button
             // style={{ marginTop: -35 }}
             title="SCAN QR"
-            onPress={() => navigation.navigate('BarCodeScanner', { onReturn: (item) => {
-              onChangeName(item)
-            }})}
+            onPress={() => scanned()
+            }
           />
           <StatusBar style="auto" />
         </View>
@@ -268,7 +287,11 @@ const EnterDetails = ({ navigation, route }) => {
             height: 40,
           }}
         >
-          <TextInput style={styles.textinput} />
+          <TextInput 
+                style={styles.textinput} 
+                onChangeText = {onChangeVenue}
+                value={venue}
+                />
         </View>
         <Text style={{ fontWeight: "bold", marginTop: 20 }}>
           Number of Days:{" "}
@@ -282,7 +305,7 @@ const EnterDetails = ({ navigation, route }) => {
             height: 40,
           }}
         >
-          <TextInput style={styles.textinput} />
+          <TextInput style={styles.textinput} onChangeText= {onChangeDays} value = {days}/>
         </View>
         <View style={{ flexDirection: "row" }}>
           <Text style={{ fontWeight: "bold", marginTop: 20 }}>Date: </Text>

@@ -59,3 +59,6 @@ const styles = StyleSheet.create({
         margin: 10,
     }
 })
+
+
+// name, venue, days, date
