@@ -2,7 +2,7 @@ import React, {useEffect, useState, useCallback, useMemo} from "react";
 import { View, Text, Button, StyleSheet, FlatList, TouchableOpacity,Image,Alert } from 'react-native';
 
 import DropDownPicker from 'react-native-dropdown-picker';
-// import Certificates from "./Certificates";
+import Certificates from "./Certificates";
 
 DropDownPicker.setTheme("DARK"); //DARKNESS AWAITS YOU *only for dropdown
 
@@ -75,7 +75,7 @@ export default function TeacherScreen({navigation}) {
     //
     const filteredList = useMemo(
         () => {
-            if (student === 'NONE' && categoryValue === 'NONE' && pointValue === 'NONE') 
+            if (student === null && categoryValue === null && pointValue === null) 
                 {
                     console.log('dadas')
                     return data
